@@ -13,16 +13,12 @@ function sortAccountsByLastName(accounts) {
 
 function getTotalNumberOfBorrows(account, books) {
   const userId = account.id
-  let total = 0
+  let totalBooks = 0
   for (let book in books) {
     const borrow = books[book].borrows
-    borrow.forEach((item) => {
-      if (item.id === userId) {
-        total++
-      }
-    })
+    totalBooks += borrow.reduce(((total, current) => total + (current.id === userId ? 1 : 0)), 0)
   }
-  return total
+  return totalBooks
 }
 
 function getBooksPossessedByAccount(account, books, authors) {
